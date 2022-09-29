@@ -12,9 +12,8 @@ pipeline {
         stage('Build'){
             steps {
                 echo "Compile Backend"
-                sh 'npm install'
-                sh 'npm --version'
-                sh 'npm run build'
+                sh 'pwd'
+                sh 'ls'
             }
         }
 
