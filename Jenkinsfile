@@ -37,7 +37,7 @@ pipeline {
                                     sshTransfer(
                                         sourceFiles: 'www/Archive.zip',
                                         removePrefix: 'www/',
-                                        remoteDirectory: '/',
+                                        remoteDirectory: '/home/cloud_user/vincent',
                                     )
                                 ]
                             )
