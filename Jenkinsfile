@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo "Compile Backend"
                 sh 'mkdir www'
-                sh 'zip -r www/Archive.zip .'
+                sh 'zip -r www/Archive.zip . -x www'
             }
         }
 
