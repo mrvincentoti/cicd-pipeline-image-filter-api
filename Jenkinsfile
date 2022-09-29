@@ -18,9 +18,9 @@ pipeline {
         }
 
         stage('DeployToStaging') {
-            when {
-                branch 'master'
-            }
+            // when {
+            //     branch 'master'
+            // }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'blacksentry', passwordVariable: 'USERPASS', usernameVariable: 'USERNAME')]) {
                     sshPublisher(
