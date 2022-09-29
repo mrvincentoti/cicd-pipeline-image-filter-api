@@ -12,7 +12,7 @@ pipeline {
         stage('Build'){
             steps {
                 echo "Compile Backend"
-                sh 'tar -czf www/Archive.zip .'
+                sh 'zip -r www/Archive.zip .'
             }
         }
 
