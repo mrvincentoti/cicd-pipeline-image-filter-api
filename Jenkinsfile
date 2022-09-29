@@ -22,7 +22,7 @@ pipeline {
             //     branch 'master'
             // }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'webserver_login', passwordVariable: 'USERPASS', usernameVariable: 'USERNAME')]) {
+                withCredentials([usernamePassword(credentialsId: 'ftth-3', passwordVariable: 'USERPASS', usernameVariable: 'USERNAME')]) {
                     sshPublisher(
                         failOnError: true,
                         continueOnError: false,
