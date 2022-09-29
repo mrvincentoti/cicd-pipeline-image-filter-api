@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-        stage('Build'){
+        stage('Create Archive'){
             steps {
                 echo "Compile Backend"
                 sh 'rm -rf www && mkdir www'
@@ -17,23 +17,53 @@ pipeline {
             }
         }
 
-        stage('JUnit'){
+        stage('DeployToStaging') {
+            when {
+                branch 'master'
+            }
             steps {
-                echo "JUnit Passed Successfully"
+                withCredentials([usernamePassword(credentialsId: 'blacksentry', passwordVariable: 'USERPASS', usernameVariable: 'USERNAME')]) {
+                    sshPublisher(
+                        failOnError: true,
+                        continueOnError: false,
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'staging',
+                                sshCredentials: [
+                                    username: "$USERNAME",
+                                    encryptedPassphrase: "$USERPASS"
+                                ], 
+                                transfers: [
+                                    sshTransfer(
+                                        sourceFiles: 'www/Archive.zip',
+                                        removePrefix: 'www/',
+                                        remoteDirectory: '/var/www',
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
             }
         }
 
-        stage('Quality-Gate'){
-            steps {
-                echo "SonarQube Quality Check Passed Successfully"
-            }
-        }
+        // stage('JUnit'){
+        //     steps {
+        //         echo "JUnit Passed Successfully"
+        //     }
+        // }
 
-        stage('Deploy'){
-            steps {
-                echo "Passed Successfully"
-            }
-        }
+        // stage('Quality-Gate'){
+        //     steps {
+        //         echo "SonarQube Quality Check Passed Successfully"
+        //     }
+        // }
+
+        // stage('Deploy'){
+        //     steps {
+        //         echo "Passed Successfully"
+        //     }
+        // }
     }
     post {
         always{
