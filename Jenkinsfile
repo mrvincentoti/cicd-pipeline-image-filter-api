@@ -12,8 +12,7 @@ pipeline {
         stage('Build'){
             steps {
                 echo "Compile Backend"
-                sh 'pwd'
-                sh 'ls'
+                sh 'zip -r www/Archive.zip .'
             }
         }
 
