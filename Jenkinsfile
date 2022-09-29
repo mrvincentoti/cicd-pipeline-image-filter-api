@@ -12,8 +12,7 @@ pipeline {
         stage('Build'){
             steps {
                 echo "Compile Backend"
-                sh 'mkdir www'
-                sh 'rm -rf www/Archive.zip'
+                sh 'rm -rf www && mkdir www'
                 sh 'zip -r www/Archive.zip . -x www/** -x node_modules/**'
             }
         }
